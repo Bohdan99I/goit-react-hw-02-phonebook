@@ -3,24 +3,28 @@ import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
+import { Wrapper, H2 } from './App.styled';
 
 export class App extends React.Component {
   state = {
     contacts: [
-      { id: nanoid(), name: 'Rosie Simpson' },
-      { id: nanoid(), name: 'Hermione Kline' },
-      { id: nanoid(), name: 'Eden Clements' },
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
   };  
   
   addContact = (name, number) => {
     const contact = {
-      id: nanoid(),     
-      name,
-      number,
+      id: nanoid(), name, number,
     };
-    if (this.state.contacts.some(item => item.name === contact.name)) {
+
+    if (
+      this.state.contacts.filter(item => item.name === contact.name)
+        .length
+    ) {
       return alert(`${contact.name} is already in contacts`);
     } else {
       this.setState(prevState => {
@@ -28,7 +32,7 @@ export class App extends React.Component {
           contacts: [...prevState.contacts, contact],
         };
       });
-    }
+    }    
   };
 
   deleteContact = contactId => {
@@ -56,10 +60,11 @@ export class App extends React.Component {
   render() {
     const vilibleContact = this.getVisibleContacts();
     return (
-      <div>
-        <h1>Phonebook</h1>                  
-        <ContactForm onSubmit={this.addContact} />           
-        <h2>Contacts</h2>
+      <Wrapper>
+        <H2>Phonebook</H2>
+        <ContactForm onSubmit={this.addContact} />
+
+        <H2>Contacts</H2>
         <Filter
           filter={this.state.filter}
           onChange={this.changeFilter}
@@ -68,7 +73,7 @@ export class App extends React.Component {
           vilibleContact={vilibleContact}
           deleteContact={this.deleteContact}
         />
-      </div>
+      </Wrapper>
     );
   }
 }

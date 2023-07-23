@@ -1,25 +1,32 @@
 import PropTypes from 'prop-types';
+import {
+    ContactListWrapper,
+    ContactListItem,
+    ContactName,
+    ContactButton,
+} from './ContactList.styled';
 
 export const ContactList = ({ vilibleContact, deleteContact }) => {
     return (
         <div>
-            <ul>
+            <ContactListWrapper>
                 {vilibleContact.map(contact => {
                     return (
-                        <li key={contact.id}>
-                            <p>
-                                {contact.name} {contact.number}
-                            </p>
-                            <button
+                        <ContactListItem key={contact.id}>
+                            <div>
+                                <ContactName>{contact.name}:</ContactName>
+                                <p>{contact.number}</p>
+                            </div>
+                            <ContactButton
                                 type="button"
                                 onClick={() => deleteContact(contact.id)}
                             >
                                 Delete
-                            </button>
-                        </li>
+                            </ContactButton>
+                        </ContactListItem>
                     );
                 })}
-            </ul>
+            </ContactListWrapper>
         </div>
     );
 };
