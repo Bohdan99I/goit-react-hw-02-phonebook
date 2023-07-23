@@ -14,17 +14,16 @@ export class App extends React.Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-  };  
-  
+  };
+
   addContact = (name, number) => {
     const contact = {
-      id: nanoid(), name, number,
+      id: nanoid(),
+      name,
+      number,
     };
 
-    if (
-      this.state.contacts.filter(item => item.name === contact.name)
-        .length
-    ) {
+    if (this.state.contacts.filter(item => item.name === contact.name).length) {
       return alert(`${contact.name} is already in contacts`);
     } else {
       this.setState(prevState => {
@@ -32,15 +31,13 @@ export class App extends React.Component {
           contacts: [...prevState.contacts, contact],
         };
       });
-    }    
+    }
   };
 
   deleteContact = contactId => {
     this.setState(prevState => {
       return {
-        contacts: prevState.contacts.filter(
-          item => item.id !== contactId
-        ),
+        contacts: prevState.contacts.filter(item => item.id !== contactId),
       };
     });
   };
@@ -65,10 +62,7 @@ export class App extends React.Component {
         <ContactForm onSubmit={this.addContact} />
 
         <H2>Contacts</H2>
-        <Filter
-          filter={this.state.filter}
-          onChange={this.changeFilter}
-        />
+        <Filter filter={this.state.filter} onChange={this.changeFilter} />
         <ContactList
           vilibleContact={vilibleContact}
           deleteContact={this.deleteContact}
