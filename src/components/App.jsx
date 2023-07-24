@@ -23,7 +23,13 @@ export class App extends React.Component {
       number,
     };
 
-    if (this.state.contacts.filter(item => item.name === contact.name).length) {
+    const lowerCaseName = name.toLowerCase();
+
+    if (
+      this.state.contacts.some(
+        item => item.name.toLowerCase() === lowerCaseName
+      )
+    ) {
       return alert(`${contact.name} is already in contacts`);
     } else {
       this.setState(prevState => {
